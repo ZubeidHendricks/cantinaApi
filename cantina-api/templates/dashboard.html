@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to your dashboard, {{ .email }}</h1>
+    <h2>Reviews:</h2>
+    <ul id="reviews"></ul>
+    <script>
+        fetch('/reviews', {
+            headers: {
+                'Authorization': document.cookie.split('=')[1]
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const reviewsList = document.getElementById('reviews');
+            data.forEach(review => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Rating: ${review.rating}, Content: ${review.content}`;
+                reviewsList.appendChild(listItem);
+            });
+        });
+    </script>
+</body>
+</html>

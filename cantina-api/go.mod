@@ -4,7 +4,12 @@ go 1.22.4
 
 require github.com/gin-gonic/gin v1.10.0
 
-require github.com/mattn/go-sqlite3 v1.14.22 // indirect
+require (
+	cloud.google.com/go/compute/metadata v0.3.0 // indirect
+	github.com/mattn/go-sqlite3 v1.14.22 // indirect
+	github.com/sirupsen/logrus v1.9.3 // indirect
+	golang.org/x/oauth2 v0.21.0 // indirect
+)
 
 require (
 	github.com/bytedance/sonic v1.11.6 // indirect
