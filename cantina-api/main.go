@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"os"
 	"time"
 
 	_ "net/http/pprof"
@@ -24,7 +25,7 @@ import (
 var (
 	db                *gorm.DB
 	err               error
-	jwtKey            = []byte("")
+	jwtKey            = []byte("af32b19a2e8b1c1f7e4d5a6b3c2d1f5e7b6c9a0f8b7c6e1d2a5b8e7f1c3d2a6")
 	redisClient       *redis.Client
 	ctx               = context.Background()
 	cacheTimeout      = 5 * time.Minute
@@ -116,17 +117,19 @@ func main() {
 
 	// OAuth2 setup
 	oauthConfig = &oauth2.Config{
-
-		RedirectURL: "http://localhost:8080/auth/github/callback",
-		Scopes:      []string{"user:email"},
-		Endpoint:    github.Endpoint,
+		ClientID:     os.Getenv("Ov23liI5zguYuX0PrUJp"),
+		ClientSecret: os.Getenv("9ca229032baff0afa2c0b9d1c128c68a2592f76b"),
+		RedirectURL:  "http://localhost:8080/auth/github/callback",
+		Scopes:       []string{"user:email"},
+		Endpoint:     github.Endpoint,
 	}
 
 	googleOauthConfig = &oauth2.Config{
-
-		RedirectURL: "http://localhost:8080/auth/google/callback",
-		Scopes:      []string{"https://www.googleapis.com/auth/userinfo.email"},
-		Endpoint:    google.Endpoint,
+		ClientID:     os.Getenv("289142226746-n0r3k0uelg472ncr20k23tn7etqh2b13.apps.googleusercontent.com"),
+		ClientSecret: os.Getenv("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"),
+		RedirectURL:  "http://localhost:8080/auth/google/callback",
+		Scopes:       []string{"https://www.googleapis.com/auth/userinfo.email"},
+		Endpoint:     google.Endpoint,
 	}
 
 	// Gin setup
