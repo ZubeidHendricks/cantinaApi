@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
-	"os"
 	"time"
 
 	_ "net/http/pprof"
@@ -117,7 +116,6 @@ func main() {
 
 	// OAuth2 setup
 	oauthConfig = &oauth2.Config{
-		ClientID: os.Getenv("Ov23liI5zguYuX0PrUJp"),
 
 		RedirectURL: "http://localhost:8080/auth/github/callback",
 		Scopes:      []string{"user:email"},
@@ -125,7 +123,6 @@ func main() {
 	}
 
 	googleOauthConfig = &oauth2.Config{
-		ClientID: os.Getenv("289142226746-n0r3k0uelg472ncr20k23tn7etqh2b13.apps.googleusercontent.com"),
 
 		RedirectURL: "http://localhost:8080/auth/google/callback",
 		Scopes:      []string{"https://www.googleapis.com/auth/userinfo.email"},
