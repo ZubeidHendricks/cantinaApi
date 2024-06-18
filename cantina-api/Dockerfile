@@ -1,24 +1,20 @@
-# Dockerfile
-# Start from the official Go image
-FROM golang:1.19-alpine
+# Start with a base image that includes Go
+FROM golang:1.20-alpine
 
-# Set the Current Working Directory inside the container
+# Install necessary packages
+RUN apk update && apk add --no-cache gcc musl-dev
+
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy go mod and sum files
-COPY go.mod go.sum ./
-
-# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
-RUN go mod download
-
-# Copy the source from the current directory to the Working Directory inside the container
+# Copy the current directory contents into the container at /app
 COPY . .
 
 # Build the Go app
-RUN go build -o main .
+RUN CGO_ENABLED=1 GOOS=linux go build -o main .
 
-# Expose port 8080 to the outside world
+# Make port 8080 available to the world outside this container
 EXPOSE 8080
 
-# Command to run the executable
+# Run the executable
 CMD ["./main"]
